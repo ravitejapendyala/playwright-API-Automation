@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class GetAPICall {
 
@@ -29,7 +30,9 @@ public class GetAPICall {
         System.out.println("Response body is: ");
         System.out.println(jsonResponse.toPrettyString());
         System.out.println("API Response url:  "+apiResponse.url());
+        Map<String,String> headers = apiResponse.headers();
         System.out.println("Headers are : "+ apiResponse.headersArray().toString());
-
+        System.out.println("Headers are : "+ headers.toString());
+        Assert.assertEquals("application/json;",headers.get("content-type"));
     }
 }
