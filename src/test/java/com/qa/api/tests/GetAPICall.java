@@ -24,6 +24,7 @@ public class GetAPICall {
         System.out.println("Response status code is : "+apiResponse.status());
         System.out.println("Response status code is : "+apiResponse.statusText());
         System.out.println("Response body is : "+apiResponse.body());
+        System.out.println("Response with plain text is : "+apiResponse.text());
         Assert.assertEquals(apiResponse.status(),200);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonResponse =  objectMapper.readTree(apiResponse.body());
