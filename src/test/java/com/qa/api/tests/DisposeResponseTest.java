@@ -24,8 +24,10 @@ public class DisposeResponseTest {
     }
 
     @Test
-    public void getUsersAPITest() throws IOException {
+    public void DisposeTest() throws IOException {
 
+
+    // Test1
     APIResponse apiResponse =  requestContext.get("https://gorest.co.in/public/v2/users",RequestOptions.
             create()
             .setQueryParam("gender","male")
@@ -39,7 +41,7 @@ public class DisposeResponseTest {
         String status = apiResponse.statusText();
         System.out.println("Status before response dispose  : "+status);
 
-        apiResponse.dispose(); // Will dispose only response body but response text , status ,url will remain intact
+        //apiResponse.dispose(); // Will dispose only response body but response text , status ,url will remain intact
         try{
             System.out.println("Pretty response After dispose is : "+apiResponse.text());
 
@@ -52,6 +54,13 @@ public class DisposeResponseTest {
         System.out.println("Response URL after   response dispose  : "+apiResponse.url());
         System.out.println("Response code after   response dispose  : "+apiResponse.status());
         //System.out.println("Pretty response After dispose is : "+apiResponse.text());
+
+        APIResponse apiResponse1 = requestContext.get("https://reqres.in/api/users?page=2");
+        requestContext.dispose();
+        System.out.println("Response body for request1 : "+apiResponse.text());
+        System.out.println("Response body for request2 : "+apiResponse1.text());
+        // You can use dispose method on response as well as on context.
+
 
     }
     @Test
