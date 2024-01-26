@@ -8,6 +8,7 @@ import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.RequestOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -67,5 +68,10 @@ public class GetAPICall {
         System.out.println("Headers are : "+ apiResponse.headersArray().toString());
         System.out.println("Headers are : "+ headers.toString());
 
+    }
+
+    @AfterTest
+    public void tearDown(){
+        playwright.close();
     }
 }
