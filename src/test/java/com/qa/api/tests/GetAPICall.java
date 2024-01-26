@@ -51,7 +51,7 @@ public class GetAPICall {
 
         APIResponse apiResponse =  requestContext.get("https://gorest.co.in/public/v2/users",
                 RequestOptions.create()
-                        .setQueryParam("id",6007021)
+                        .setQueryParam("gender","male")
                         .setQueryParam("status","inactive"));
         System.out.println("Response status code is : "+apiResponse.status());
         System.out.println("Response status code is : "+apiResponse.statusText());
