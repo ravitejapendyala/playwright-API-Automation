@@ -56,7 +56,7 @@ public class DisposeResponseTest {
         //System.out.println("Pretty response After dispose is : "+apiResponse.text());
 
         APIResponse apiResponse1 = requestContext.get("https://reqres.in/api/users?page=2");
-        requestContext.dispose();
+        //requestContext.dispose();
         System.out.println("Response body for request1 : "+apiResponse.text());
         System.out.println("Response body for request2 : "+apiResponse1.text());
         // You can use dispose method on response as well as on context.
