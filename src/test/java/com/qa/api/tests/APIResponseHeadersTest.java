@@ -52,7 +52,7 @@ public class APIResponseHeadersTest {
         Assert.assertEquals("cloudflare",headers.get("server"));
         List<HttpHeader> headerslist = apiResponse.headersArray();
         for(HttpHeader h: headerslist){
-            System.out.println("Header : "+h.name+" Value: "+h.value);
+            System.out.println("Header -> "+h.name+" Value-> "+h.value);
         }
     }
 
