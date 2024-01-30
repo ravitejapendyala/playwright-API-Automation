@@ -28,7 +28,7 @@ public class PostRequestTest {
     }
 
     @Test
-    public void getHeadersTest() throws IOException {
+    public void PostRequestTest() throws IOException {
 
 
         APIResponse apiResponse =  requestContext.get("https://gorest.co.in/public/v2/users");
