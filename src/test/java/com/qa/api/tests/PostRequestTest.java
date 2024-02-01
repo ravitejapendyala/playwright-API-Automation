@@ -46,6 +46,22 @@ public class PostRequestTest {
         Assert.assertEquals(apiPostResponse.status(),201);
         Assert.assertEquals(apiPostResponse.statusText(),"Created");
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode postJsonResponse =  objectMapper.readTree(apiPostResponse.body());
+        System.out.println("Post output is : "+postJsonResponse.toPrettyString());
+
+        // capture Id from postjson response
+
+        String id =  postJsonResponse.get("id").asText();
+
+        // Get call : Fetch same user by Id
+
+        APIResponse getResponse =  requestContext.get("https://gorest.co.in/public/v2/users/"+id+"",
+                RequestOptions.create()
+                        .setHeader("Authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
+        );
+        System.out.println("Get response is : "+getResponse.status());
+        Assert.assertEquals(getResponse.status(),200);
 
     }
 
