@@ -2,6 +2,7 @@ package com.qa.api.tests;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
@@ -30,24 +31,22 @@ public class PostRequestTest {
     @Test
     public void PostRequestTest() throws IOException {
 
-
+        Faker faker = new Faker();
         Map<String,Object> inputData = new HashMap<String, Object>();
         inputData.put("name","Ravi Teja Pendyala");
         inputData.put("gender","male");
-        inputData.put("email","tenali.ramakrishna3@17ce.com");
+        inputData.put("email",faker.internet().emailAddress());
         inputData.put("status","active");
         APIResponse apiPostResponse =  requestContext.post("https://gorest.co.in/public/v2/users",
                 RequestOptions.create()
                 .setHeader("Content-Type","application/json")
-                .setHeader("Authorization","Bearer 7bb2b7149e52ec7745208dd33822ad09a8117980860506d564ed566d5b12c4aa")
+                .setHeader("Authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
                 .setData(inputData));
         System.out.println("Response status code is : "+apiPostResponse.status());
         Assert.assertEquals(apiPostResponse.status(),201);
+        Assert.assertEquals(apiPostResponse.statusText(),"Created");
 
-        List<HttpHeader> headerslist = apiPostResponse.headersArray();
-        for(HttpHeader h: headerslist){
-            System.out.println("Header -> "+h.name+" Value-> "+h.value);
-        }
+
     }
 
 
