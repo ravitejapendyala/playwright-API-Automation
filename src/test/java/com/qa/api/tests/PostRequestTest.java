@@ -61,7 +61,9 @@ public class PostRequestTest {
                         .setHeader("Authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
         );
         System.out.println("Get response is : "+getResponse.status());
+
         Assert.assertEquals(getResponse.status(),200);
+        System.out.println("Get response is : "+getResponse.statusText());
 
     }
 
