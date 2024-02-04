@@ -62,8 +62,12 @@ public class PostRequestTest {
         );
         System.out.println("Get response is : "+getResponse.status());
 
+        JsonNode getResponseJson = objectMapper.readTree(getResponse.body());
+        System.out.println("Get response is : "+getResponseJson.toPrettyString());
         Assert.assertEquals(getResponse.status(),200);
         System.out.println("Get response is : "+getResponse.statusText());
+        Assert.assertTrue(getResponse.text().contains(id));
+        Assert.assertTrue(getResponse.text().contains("Pendyala"));
 
     }
 
