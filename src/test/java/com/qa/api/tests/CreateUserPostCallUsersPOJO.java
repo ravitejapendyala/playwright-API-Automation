@@ -56,6 +56,7 @@ public class CreateUserPostCallUsersPOJO {
         System.out.println("Email from user Response is: "+responseUser.getEmail());
         System.out.println("Name from user Response is: "+responseUser.getName());
         System.out.println("Status from user Response is: "+responseUser.getStatus());
+        System.out.println("User Response from toString is: "+responseUser);
         Assert.assertEquals(responseUser.getEmail(),user.getEmail());
 
     }
