@@ -1,15 +1,13 @@
 package com.api.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
+@EqualsAndHashCode
 public class User_lombok {
     private String id;
     private String name;

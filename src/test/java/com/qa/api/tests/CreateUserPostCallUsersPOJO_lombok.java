@@ -41,7 +41,7 @@ public class CreateUserPostCallUsersPOJO_lombok {
                 .name("Ravi Teja Pendyala")
                 .email(email)
                 .status("active")
-                .gender("Alpha male")
+                .gender("male")
                 .build();
         //User_lombok user_lombok = new User_lombok("Ravi Teja",email,"male","active");
 
