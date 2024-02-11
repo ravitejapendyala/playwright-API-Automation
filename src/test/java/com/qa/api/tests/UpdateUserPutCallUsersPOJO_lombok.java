@@ -68,7 +68,7 @@ public class UpdateUserPutCallUsersPOJO_lombok {
 
         System.out.println("API Get response text is: "+getResponse.statusText());
         System.out.println("API Get response code is: "+getResponse.status());
-        System.out.println("API Get response body is: "+getResponse_AfterUpdate);
+        System.out.println("API Get response body after update is: "+getResponse_AfterUpdate);
 
 
     }
