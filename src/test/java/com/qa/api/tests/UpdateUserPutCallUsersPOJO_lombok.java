@@ -53,7 +53,10 @@ public class UpdateUserPutCallUsersPOJO_lombok {
         String id =  userResponse.getId();
 
 
+        // PUT Request
+
         user.setStatus("inActive");
+        user.setName("Ravi Teja Pendyala");
         APIResponse putResponse =  requestContext.put("https://gorest.co.in/public/v2/users/"+id+"",RequestOptions.create()
                 .setHeader("authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
                 .setHeader("Content-Type","application/json")
@@ -61,14 +64,18 @@ public class UpdateUserPutCallUsersPOJO_lombok {
         System.out.println("API Put response text is: "+putResponse.statusText());
         System.out.println("API Put response code is: "+putResponse.status());
 
+        // GET Request
         APIResponse getResponse =  requestContext.get("https://gorest.co.in/public/v2/users/"+id+"",RequestOptions.create()
                 .setHeader("authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
                     );
         User_lombok getResponse_AfterUpdate = objectMapper.readValue(getResponse.body(),User_lombok.class);
 
         System.out.println("API Get response text is: "+getResponse.statusText());
+        System.out.println("API Get response URL is: "+getResponse.url());
         System.out.println("API Get response code is: "+getResponse.status());
         System.out.println("API Get response body after update is: "+getResponse_AfterUpdate);
+        Assert.assertEquals(getResponse_AfterUpdate.getName(),"Ravi Teja Pendyala","Updated name verfication");
+        Assert.assertEquals(getResponse_AfterUpdate.getStatus(),"inactive","Updated status verfication");
 
 
     }
