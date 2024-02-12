@@ -43,7 +43,7 @@ public class TokenTest {
     }
 
     @Test
-    public void TokenTest() throws IOException {
+    public void UpdateBookingUsingTokenTest() throws IOException {
 
         Random random = new Random();
 
@@ -99,6 +99,66 @@ public class TokenTest {
         System.out.println("Put response status code is: "+PutRespponse.status());
         System.out.println("Put response status text is: "+PutRespponse.statusText());
         System.out.println("PUT response body is : "+putJson.toPrettyString());
+
+
+    }
+
+    @Test
+    public void DeleteBookingUsingTokenTest() throws IOException {
+
+        Random random = new Random();
+
+
+
+// Create Order
+        String bookingCreateRequestBody = "{\n" +
+                "    \"firstname\" : \"Jim\",\n" +
+                "    \"lastname\" : \"Brown\",\n" +
+                "    \"totalprice\" : 111,\n" +
+                "    \"depositpaid\" : true,\n" +
+                "    \"bookingdates\" : {\n" +
+                "        \"checkin\" : \"2018-01-01\",\n" +
+                "        \"checkout\" : \"2019-01-01\"\n" +
+                "    },\n" +
+                "    \"additionalneeds\" : \"Breakfast\"\n" +
+                "}";
+        APIResponse POSTResponse = context.post("https://restful-booker.herokuapp.com/booking", RequestOptions.create()
+                .setHeader("Content-Type","application/json")
+                .setHeader("cookie","token="+tokenValue+"")
+                .setData(bookingCreateRequestBody));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode PostJson = objectMapper.readTree(POSTResponse.body());
+        System.out.println("Post response status code is: "+POSTResponse.status());
+        System.out.println("Post response status text is: "+POSTResponse.statusText());
+        System.out.println("Post response body is : "+PostJson.toPrettyString());
+        System.out.println("Booking Id is : "+PostJson.get("bookingid"));
+
+
+
+
+        // Update Order
+
+        String bookingUpdateRequestBody = "{\n" +
+                "    \"firstname\" : \"James\",\n" +
+                "    \"lastname\" : \"Brown\",\n" +
+                "    \"totalprice\" : "+random.nextInt(1000)+",\n" +
+                "    \"depositpaid\" : true,\n" +
+                "    \"bookingdates\" : {\n" +
+                "        \"checkin\" : \"2018-01-01\",\n" +
+                "        \"checkout\" : \"2019-01-01\"\n" +
+                "    },\n" +
+                "    \"additionalneeds\" : \"Breakfast\"\n" +
+                "}";
+
+        APIResponse DeleteRespponse = context.delete("https://restful-booker.herokuapp.com/booking/"+PostJson.get("bookingid")+"", RequestOptions.create()
+                .setHeader("cookie","token="+tokenValue+"")
+                );
+         objectMapper = new ObjectMapper();
+
+        System.out.println("Delete response status code is: "+DeleteRespponse.status());
+        System.out.println("Delete response status text is: "+DeleteRespponse.statusText());
+
 
 
     }
