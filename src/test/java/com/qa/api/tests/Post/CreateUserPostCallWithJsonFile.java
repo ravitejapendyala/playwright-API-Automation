@@ -1,4 +1,4 @@
-package com.qa.api.tests;
+package com.qa.api.tests.Post;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,17 +7,17 @@ import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.Playwright;
-import com.microsoft.playwright.options.HttpHeader;
 import com.microsoft.playwright.options.RequestOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.nio.file.Files;
 
-public class PostRequestTest {
+public class CreateUserPostCallWithJsonFile {
     Playwright playwright;
     APIRequest request;
     APIRequestContext requestContext;
@@ -29,19 +29,25 @@ public class PostRequestTest {
     }
 
     @Test
-    public void PostRequestTest() throws IOException {
+    public void CreateUserWithStringBody() throws IOException {
 
         Faker faker = new Faker();
-        Map<String,Object> inputData = new HashMap<String, Object>();
+     /*   Map<String,Object> inputData = new HashMap<String, Object>();
         inputData.put("name","Ravi Teja Pendyala");
         inputData.put("gender","male");
         inputData.put("email",faker.internet().emailAddress());
-        inputData.put("status","active");
+        inputData.put("status","active");*/
+        String email = faker.internet().emailAddress();
+
+        // Get the Json file
+        File file = new File("./src/test/data/create_user.json");
+        byte[] fileBytes =  Files.readAllBytes(file.toPath());
+
         APIResponse apiPostResponse =  requestContext.post("https://gorest.co.in/public/v2/users",
                 RequestOptions.create()
                 .setHeader("Content-Type","application/json")
                 .setHeader("Authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
-                .setData(inputData));
+                .setData(fileBytes));
         System.out.println("Response status code is : "+apiPostResponse.status());
         Assert.assertEquals(apiPostResponse.status(),201);
         Assert.assertEquals(apiPostResponse.statusText(),"Created");
@@ -67,7 +73,8 @@ public class PostRequestTest {
         Assert.assertEquals(getResponse.status(),200);
         System.out.println("Get response is : "+getResponse.statusText());
         Assert.assertTrue(getResponse.text().contains(id));
-        Assert.assertTrue(getResponse.text().contains("Pendyala"));
+        //Assert.assertTrue(getResponse.text().contains("Pendyala"));
+        //Assert.assertTrue(getResponse.text().contains(email));
 
     }
 

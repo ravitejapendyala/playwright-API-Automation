@@ -1,4 +1,4 @@
-package com.qa.api.tests;
+package com.qa.api.tests.Post;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +7,7 @@ import com.microsoft.playwright.APIRequest;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.HttpHeader;
 import com.microsoft.playwright.options.RequestOptions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -14,10 +15,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class CreateUserPostCallWithJsonString {
+public class PostRequestTest {
     Playwright playwright;
     APIRequest request;
     APIRequestContext requestContext;
@@ -29,21 +29,14 @@ public class CreateUserPostCallWithJsonString {
     }
 
     @Test
-    public void CreateUserWithStringBody() throws IOException {
+    public void PostRequestTest() throws IOException {
 
         Faker faker = new Faker();
-     /*   Map<String,Object> inputData = new HashMap<String, Object>();
+        Map<String,Object> inputData = new HashMap<String, Object>();
         inputData.put("name","Ravi Teja Pendyala");
         inputData.put("gender","male");
         inputData.put("email",faker.internet().emailAddress());
-        inputData.put("status","active");*/
-        String email = faker.internet().emailAddress();
-        String inputData = "{\n" +
-                "    \"name\": \"Ravi Teja Pendyala\",\n" +
-                "    \"gender\": \"male\",\n" +
-                "    \"email\": \""+email+"\",\n" +
-                "    \"status\": \"active\"\n" +
-                "}";
+        inputData.put("status","active");
         APIResponse apiPostResponse =  requestContext.post("https://gorest.co.in/public/v2/users",
                 RequestOptions.create()
                 .setHeader("Content-Type","application/json")
@@ -75,7 +68,6 @@ public class CreateUserPostCallWithJsonString {
         System.out.println("Get response is : "+getResponse.statusText());
         Assert.assertTrue(getResponse.text().contains(id));
         Assert.assertTrue(getResponse.text().contains("Pendyala"));
-        Assert.assertTrue(getResponse.text().contains(email));
 
     }
 

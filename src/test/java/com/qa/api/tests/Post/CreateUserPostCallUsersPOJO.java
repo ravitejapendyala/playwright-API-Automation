@@ -1,7 +1,7 @@
-package com.qa.api.tests;
+package com.qa.api.tests.Post;
 
-import com.api.models.User_lombok;
 import com.api.models.Users;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import com.microsoft.playwright.APIRequest;
@@ -14,9 +14,11 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
-public class CreateUserPostCallUsersPOJO_lombok {
+public class CreateUserPostCallUsersPOJO {
     Playwright playwright;
     APIRequest request;
     APIRequestContext requestContext;
@@ -28,28 +30,19 @@ public class CreateUserPostCallUsersPOJO_lombok {
     }
 
     @Test
-    public void CreateUserWithPojoLombok() throws IOException {
+    public void CreateUserWithPojo() throws IOException {
 
         Faker faker = new Faker();
 
         String email = faker.internet().emailAddress();
 
-//        Users user = new Users("Ravi Teja",email,"male","active");
-
-        // creating user_lombok object using builder patter
-        User_lombok user_lombok =  User_lombok.builder()
-                .name("Ravi Teja Pendyala")
-                .email(email)
-                .status("active")
-                .gender("male")
-                .build();
-        //User_lombok user_lombok = new User_lombok("Ravi Teja",email,"male","active");
+        Users user = new Users("Ravi Teja",email,"male","active");
 
         APIResponse apiPostResponse =  requestContext.post("https://gorest.co.in/public/v2/users",
                 RequestOptions.create()
                 .setHeader("Content-Type","application/json")
                 .setHeader("Authorization","Bearer 6979bcde6ca87ebff51952ec22dd7fd0a0af9f4156c69cb2f509268d040c410e")
-                .setData(user_lombok));
+                .setData(user));
         System.out.println("Response status code is : "+apiPostResponse.status());
         Assert.assertEquals(apiPostResponse.status(),201);
         Assert.assertEquals(apiPostResponse.statusText(),"Created");
@@ -64,7 +57,7 @@ public class CreateUserPostCallUsersPOJO_lombok {
         System.out.println("Name from user Response is: "+responseUser.getName());
         System.out.println("Status from user Response is: "+responseUser.getStatus());
         System.out.println("User Response from toString is: "+responseUser);
-        Assert.assertEquals(responseUser.getEmail(),user_lombok.getEmail());
+        Assert.assertEquals(responseUser.getEmail(),user.getEmail());
 
     }
 

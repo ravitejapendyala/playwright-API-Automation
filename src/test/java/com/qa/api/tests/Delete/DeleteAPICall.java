@@ -1,4 +1,4 @@
-package com.qa.api.tests;
+package com.qa.api.tests.Delete;
 
 import com.api.models.User_lombok;
 import com.fasterxml.jackson.databind.ObjectMapper;
