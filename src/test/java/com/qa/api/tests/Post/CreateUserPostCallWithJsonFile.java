@@ -40,6 +40,7 @@ public class CreateUserPostCallWithJsonFile {
         String email = faker.internet().emailAddress();
 
         // Get the Json file
+        
         File file = new File("./src/test/data/create_user.json");
         byte[] fileBytes =  Files.readAllBytes(file.toPath());
 
